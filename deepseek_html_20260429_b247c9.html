@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOASIS - Soluciones Digitales</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #2D3561;
+            --primary-purple: #6C4AB6;
+            --accent-light: #8D9EFF;
+            --accent-soft: #B9E0FF;
+            --white: #FFFFFF;
+            --light-bg: #F5F0FF;
+            --text-dark: #1A1A2E;
+            --text-gray: #5A5A7A;
+            --gradient-primary: linear-gradient(135deg, #2D3561 0%, #6C4AB6 50%, #8D9EFF 100%);
+            --gradient-light: linear-gradient(135deg, #8D9EFF 0%, #B9E0FF 100%);
+            --card-shadow: 0 10px 40px rgba(45, 53, 97, 0.12);
+            --hover-shadow: 0 20px 50px rgba(108, 74, 182, 0.25);
+            --border-glow: 0 0 20px rgba(141, 158, 255, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background-color: var(--white);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Animaciones mejoradas */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-15px) rotate(1deg); }
+            75% { transform: translateY(-15px) rotate(-1deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(141, 158, 255, 0.3); }
+            50% { transform: scale(1.08); box-shadow: 0 0 40px rgba(108, 74, 182, 0.5); }
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        @keyframes borderPulse {
+            0%, 100% { border-color: rgba(141, 158, 255, 0.3); }
+            50% { border-color: rgba(108, 74, 182, 0.8); }
+        }
+
+        /* Header mejorado */
+        header {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 1.2rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(45, 53, 97, 0.08);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-bottom: 1px solid rgba(141, 158, 255, 0.1);
+        }
+
+        header.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 8px 40px rgba(45, 53, 97, 0.15);
+            padding: 1rem 5%;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo-text {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-t {
+            background: var(--gradient-primary);
+            background-size: 200% 200%;
+            animation: gradientFlow 3s ease infinite;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+            font-size: 2.8rem;
+            font-weight: 900;
+            margin-right: -2px;
+            filter: drop-shadow(0 0 15px rgba(141, 158, 255, 0.4));
+        }
+
+        .logo-oasis {
+            color: var(--primary-blue);
+            font-weight: 700;
+        }
+
+        .logo-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            margin-left: 5px;
+            animation: pulse 2s ease-in-out infinite;
+            position: absolute;
+            right: -12px;
+            top: 5px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            font-size: 1rem;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: 0;
+            left: 0;
+            background: var(--gradient-primary);
+            background-size: 200% 200%;
+            animation: gradientFlow 3s ease infinite;
+            transition: width 0.3s ease;
+            border-radius: 3px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-purple);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 140px 5% 100px;
+            background: linear-gradient(165deg, #F5F0FF 0%, #FFFFFF 50%, #F0F5FF 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(108, 74, 182, 0.08) 0%, transparent 70%);
+            top: -300px;
+            right: -200px;
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(141, 158, 255, 0.06) 0%, transparent 70%);
+            bottom: -200px;
+            left: -100px;
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite reverse;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text {
+            animation: fadeInLeft 0.8s ease;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.6rem 1.5rem;
+            background: rgba(141, 158, 255, 0.1);
+            border: 1px solid rgba(141, 158, 255, 0.3);
+            border-radius: 50px;
+            color: var(--primary-purple);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-text h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: var(--primary-blue);
+            letter-spacing: -1px;
+        }
+
+        .hero-text h1 span {
+            background: var(--gradient-primary);
+            background-size: 200% 200%;
+            animation: gradientFlow 3s ease infinite;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-text p {
+            font-size: 1.3rem;
+            color: var(--text-gray);
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+            max-width: 90%;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: var(--gradient-primary);
+            background-size: 200% 200%;
+            animation: gradientFlow 4s ease infinite;
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 35px rgba(108, 74, 182, 0.4);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(108, 74, 182, 0.6);
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: float 7s ease-in-out infinite;
+        }
+
+        .banner-card {
+            background: var(--white);
+            border-radius: 30px;
+            padding: 3.5rem 3rem;
+            box-shadow: var(--card-shadow);
+            border: 2px solid rgba(141, 158, 255, 0.15);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 450px;
+            transition: all 0.3s ease;
+        }
+
+        .banner-card:hover {
+            box-shadow: var(--hover-shadow);
+            border-color: rgba(141, 158, 255, 0.4);
+        }
+
+        .banner-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: var(--gradient-primary);
+            background-size: 200% 200%;
+            animation: gradientFlow 3s ease infinite;
+        }
+
+        .banner-icon {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            display: block;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        .banner-card h3 {
+            font-size: 2rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .banner-card p {
+            color: var(--text-gray);
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .banner-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(141, 158, 255, 0.2);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+            margin-top: 0.3rem;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 120px 5%;
+            background: var(--white);
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .section-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: rgba(108, 74, 182, 0.1);
+            border-radius: 50px;
+            color: var(--primary-purple);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-header h2 {
+            font-size: 3.2rem;
+            font-weight: 900;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+        }
+
+        .section-header p {
+            font-size: 1.25rem;
+            color: var(--text-gray);
+            max-width: 650px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 2.8rem 2.5rem;
+            box-shadow: var(--card-shadow);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            animation: fadeInUp 0.8s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(141, 158, 255, 0.03) 0%, rgba(108, 74, 182, 0.03) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            border-radius: 24px;
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--hover-shadow);
+            border-color: rgba(141, 158, 255, 0.3);
+        }
+
+        .service-icon-wrapper {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(141, 158, 255, 0.15) 0%, rgba(108, 74, 182, 0.15) 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.8rem;
+            transition: all 0.4s ease;
+            font-size: 2.5rem;
+        }
+
+        .service-card:hover .service-icon-wrapper {
+            background: var(--gradient-primary);
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: var(--border-glow);
+        }
+
+        .service-card h3 {
+            font-size: 1.8rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .service-card p {
+            color: var(--text-gray);
+            line-height: 1.8;
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-features {
+            list-style: none;
+        }
+
+        .service-features li {
+            color: var(--text-gray);
+            margin-bottom: 0.8rem;
+            padding-left: 2rem;
+            position: relative;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .service-features li::before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            color: var(--primary-purple);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .service-card:hover .service-features li {
+            color: var(--text-dark);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 120px 5%;
+            background: linear-gradient(165deg, #FFFFFF 0%, #F5F0FF 50%, #F0F5FF 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(141, 158, 255, 0.05) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+        }
+
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            max-width: 900px;
+            margin: 3rem auto 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-btn {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.3rem 2.8rem;
+            border-radius: 60px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            min-width: 220px;
+            justify-content: center;
+            border: 2px solid transparent;
+        }
+
+        .email-btn {
+            background: var(--gradient-primary);
+            background-size: 200% 200%;
+            animation: gradientFlow 4s ease infinite;
+            color: var(--white);
+            box-shadow: 0 15px 40px rgba(108, 74, 182, 0.4);
+        }
+
+        .discord-btn {
+            background: var(--white);
+            color: var(--primary-blue);
+            box-shadow: 0 10px 35px rgba(45, 53, 97, 0.12);
+            border: 2px solid rgba(141, 158, 255, 0.3);
+        }
+
+        .instagram-btn {
+            background: linear-gradient(135deg, #833AB4 0%, #FD1D1D 50%, #F77737 100%);
+            background-size: 200% 200%;
+            animation: gradientFlow 4s ease infinite;
+            color: var(--white);
+            box-shadow: 0 15px 40px rgba(131, 58, 180, 0.3);
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-8px) scale(1.03);
+        }
+
+        .email-btn:hover {
+            box-shadow: 0 25px 55px rgba(108, 74, 182, 0.6);
+        }
+
+        .discord-btn:hover {
+            box-shadow: 0 20px 50px rgba(45, 53, 97, 0.2);
+            border-color: var(--primary-purple);
+            color: var(--primary-purple);
+        }
+
+        .instagram-btn:hover {
+            box-shadow: 0 25px 55px rgba(131, 58, 180, 0.5);
+        }
+
+        .btn-icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-btn:hover .btn-icon {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-blue);
+            color: var(--white);
+            text-align: center;
+            padding: 3rem;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+            background-size: 200% 200%;
+            animation: gradientFlow 3s ease infinite;
+        }
+
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo span {
+            background: var(--gradient-light);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        footer p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .hero-content {
+                gap: 3rem;
+            }
+            
+            .hero-text h1 {
+                font-size: 3.2rem;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text p {
+                max-width: 100%;
+            }
+
+            .hero-visual {
+                order: -1;
+            }
+
+            .banner-card {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .banner-stats {
+                justify-content: center;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 120px 5% 60px;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-header h2 {
+                font-size: 2.3rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            .contact-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .contact-btn {
+                width: 100%;
+                max-width: 320px;
+            }
+
+            .banner-card {
+                padding: 2.5rem;
+            }
+
+            .cta-button {
+                padding: 1rem 2.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-text {
+                font-size: 1.8rem;
+            }
+
+            .logo-t {
+                font-size: 2.3rem;
+            }
+
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+
+            .hero-text p {
+                font-size: 1.1rem;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .banner-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .stat-item {
+                text-align: center;
+            }
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <nav>
+            <a href="#" class="logo">
+                <div class="logo-container">
+                    <span class="logo-t">T</span>
+                    <span class="logo-text logo-oasis">OASIS</span>
+                    <span class="logo-dot"></span>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">Inicio</a></li>
+                <li><a href="#services">Servicios</a></li>
+                <li><a href="#contact">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="badge">🚀 Soluciones Digitales Profesionales</div>
+                    <h1>Transformamos ideas en <span>experiencias digitales</span></h1>
+                    <p>Potenciamos tu presencia online con diseños innovadores y tecnología de vanguardia. Creamos sitios web que destacan y convierten visitantes en clientes.</p>
+                    <a href="#services" class="cta-button">Descubrir Servicios</a>
+                </div>
+                <div class="hero-visual">
+                    <div class="banner-card">
+                        <span class="banner-icon">✨</span>
+                        <h3>TOASIS Digital</h3>
+                        <p>Tu socio estratégico en transformación digital. Creamos soluciones web que impulsan el crecimiento de tu negocio con diseño y tecnología de última generación.</p>
+                        <div class="banner-stats">
+                            <div class="stat-item">
+                                <div class="stat-number">100+</div>
+                                <div class="stat-label">Proyectos</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">50+</div>
+                                <div class="stat-label">Clientes</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">24/7</div>
+                                <div class="stat-label">Soporte</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="services">
+            <div class="section-header">
+                <div class="section-badge">Nuestros Servicios</div>
+                <h2>Páginas para Crear</h2>
+                <p>Soluciones web completas y personalizadas para cada necesidad de tu negocio</p>
+            </div>
+            <div class="services-grid">
+                <!-- Corporativas -->
+                <div class="service-card">
+                    <div class="service-icon-wrapper">🏢</div>
+                    <h3>Páginas Corporativas</h3>
+                    <p>Sitios profesionales que comunican la esencia y valores de tu empresa con diseños impactantes.</p>
+                    <ul class="service-features">
+                        <li>Diseño institucional premium</li>
+                        <li>Secciones personalizadas</li>
+                        <li>Formularios inteligentes</li>
+                        <li>Integración con RRSS</li>
+                    </ul>
+                </div>
+
+                <!-- E-commerce -->
+                <div class="service-card">
+                    <div class="service-icon-wrapper">🛒</div>
+                    <h3>Tiendas Online</h3>
+                    <p>E-commerce optimizados para vender más, con experiencia de usuario excepcional.</p>
+                    <ul class="service-features">
+                        <li>Carrito de compras avanzado</li>
+                        <li>Múltiples pasarelas de pago</li>
+                        <li>Gestión de inventario</li>
+                        <li>Dashboard analytics</li>
+                    </ul>
+                </div>
+
+                <!-- Blogs -->
+                <div class="service-card">
+                    <div class="service-icon-wrapper">📝</div>
+                    <h3>Blogs</h3>
+                    <p>Plataformas de contenido dinámico que posicionan tu marca como referente en tu sector.</p>
+                    <ul class="service-features">
+                        <li>CMS intuitivo y potente</li>
+                        <li>Sistema de categorización</li>
+                        <li>Comentarios y comunidad</li>
+                        <li>SEO optimizado</li>
+                    </ul>
+                </div>
+
+                <!-- Estáticas y Dinámicas -->
+                <div class="service-card">
+                    <div class="service-icon-wrapper">⚡</div>
+                    <h3>Estáticas y Dinámicas</h3>
+                    <p>Desde landing pages ultrarrápidas hasta aplicaciones web complejas y escalables.</p>
+                    <ul class="service-features">
+                        <li>Rendimiento excepcional</li>
+                        <li>Contenido dinámico</li>
+                        <li>Bases de datos robustas</li>
+                        <li>APIs personalizadas</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact">
+            <div class="section-header">
+                <div class="section-badge">Conectemos</div>
+                <h2>Contacto</h2>
+                <p>Elige tu canal favorito y empecemos a trabajar juntos en tu próximo proyecto</p>
+            </div>
+            <div class="contact-buttons">
+                <a href="mailto:toasis035@gmail.com" class="contact-btn email-btn">
+                    <span class="btn-icon">📧</span>
+                    Gmail
+                </a>
+                <a href="https://discord.gg/yVhgDHUvfy" target="_blank" rel="noopener noreferrer" class="contact-btn discord-btn">
+                    <span class="btn-icon">💬</span>
+                    Discord
+                </a>
+                <a href="https://instagram.com/oasist019" target="_blank" rel="noopener noreferrer" class="contact-btn instagram-btn">
+                    <span class="btn-icon">📸</span>
+                    Instagram
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <span>T</span>OASIS
+            </div>
+            <p>&copy; 2024 TOASIS Digital - Todos los derechos reservados</p>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.7;">Transformando ideas en realidades digitales</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navegación suave mejorada
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerHeight = document.querySelector('header').offsetHeight;
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Animación de entrada con Intersection Observer
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -80px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    entry.target.style.transition = 'all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                }
+            });
+        }, observerOptions);
+
+        // Observar las tarjetas de servicio con delay progresivo
+        document.querySelectorAll('.service-card').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(50px)';
+            card.style.transitionDelay = `${index * 0.15}s`;
+            observer.observe(card);
+        });
+
+        // Efecto header al hacer scroll
+        const header = document.getElementById('header');
+        let lastScrollPosition = 0;
+        let ticking = false;
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const currentScroll = window.pageYOffset;
+                    
+                    if (currentScroll > 80) {
+                        header.classList.add('scrolled');
+                    } else {
+                        header.classList.remove('scrolled');
+                    }
+                    
+                    lastScrollPosition = currentScroll;
+                    ticking = false;
+                });
+                
+                ticking = true;
+            }
+        });
+
+        // Animación de carga inicial
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '1';
+            document.body.style.transition = 'opacity 0.5s ease';
+        });
+
+        // Prevenir animaciones iniciales no deseadas
+        document.body.style.opacity = '0';
+        setTimeout(() => {
+            document.body.style.opacity = '1';
+        }, 100);
+
+        console.log('🚀 TOASIS Digital - Listo para crear experiencias increíbles');
+    </script>
+</body>
+</html>
